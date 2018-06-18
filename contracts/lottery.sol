@@ -30,7 +30,7 @@ contract Lottery {
         return balance;
     }
 
-    function viewWinner() private view returns (address) {
+    function viewWinner() public view returns (address) {
         require(open==false);
         address winner = players[winning_index];
         return winner;
