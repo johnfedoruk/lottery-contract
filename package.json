@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha \"test/**/*.spec.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "deploy": "node deploy.js"
   },
   "repository": {
     "type": "git",
