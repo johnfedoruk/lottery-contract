@@ -1,0 +1,15 @@
+{
+  "name": "lottery-contract",
+  "version": "1.0.0",
+  "description": "Lottery | Etherium Contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github:johnfedoruk/lottery-contract"
+  },
+  "author": "",
+  "license": "ISC"
+}
