@@ -37,9 +37,6 @@ describe('Lottery', () => {
             } catch (e) {
 
             }
-            // const players = await lottery.methods.viewPlayers().call({
-            //     from: accounts[0]
-            // });
         });
         it('should fail if more then 0.01 ether is added', async () => {
             const wager = 0.01 + 0.0000001;
@@ -66,7 +63,7 @@ describe('Lottery', () => {
         });
         it('should allow multiple users to enter', async () => {
             const wager = 0.01;
-            await (async()=>{
+            await (async () => {
                 return new Promise(
                     (resolve) => {
                         accounts.forEach(async (account, index) => {
@@ -74,7 +71,7 @@ describe('Lottery', () => {
                                 from: account,
                                 value: web3.utils.toWei(`${wager}`, 'ether')
                             });
-                            if(index===accounts.length-1) {
+                            if (index === accounts.length - 1) {
                                 resolve();
                             }
                         });
@@ -85,6 +82,55 @@ describe('Lottery', () => {
                 from: accounts[0]
             });
             expect(players).deep.to.equal(accounts);
+        });
+    });
+    describe('closeLottery', () => {
+        it('manager can not call closeLottery when no balance exists', async () => {
+            try {
+                await lottery.methods.closeLottery().send({
+                    from: accounts[0]
+                });
+                chai.assert.fail();
+            } catch (e) {
+
+            }
+        });
+        beforeEach(async ()=>{
+            const wager = 0.01;
+            await (async () => {
+                return new Promise(
+                    (resolve) => {
+                        accounts.forEach(async (account, index) => {
+                            await lottery.methods.enter().send({
+                                from: account,
+                                value: web3.utils.toWei(`${wager}`, 'ether')
+                            });
+                            if (index === accounts.length - 1) {
+                                resolve();
+                            }
+                        });
+                    }
+                );
+            })();
+        });
+        it('non-manager can not call closeLottery when balance exists', async () => {
+            try {
+                await lottery.methods.closeLottery().send({
+                    from: accounts[1]
+                });
+                chai.assert.fail();
+            } catch (e) {
+
+            }
+        });
+        it('manager can call closeLottery when balance exists', async () => {
+            try {
+                await lottery.methods.closeLottery().send({
+                    from: accounts[0]
+                });
+            } catch (e) {
+                chai.assert.fail();
+            }
         });
     });
 });
