@@ -1,10 +1,11 @@
-const assert = require('assert');
 const ganache = require('ganache-cli');
 const Web3 = require('web3');
+const chai = require('chai');
 const { interface, bytecode } = require('../compile');
 
+const expect = chai.expect;
 let web3 = new Web3(ganache.provider());
-let fetchedAccounts;
+let accounts;
 let lottery;
 const MAX_GAS = 500000;
 const ARGS = [];
